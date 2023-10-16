@@ -20,8 +20,9 @@ class FilmFactory extends Factory
         return [
             'title' => fake()->sentence,
             'description' => fake()->paragraph,
+            'run_time' => fake()->numerify,
             'release_date' =>fake()->date,
-            'age_rating' => Str::random(1),
+            'age_rating' => fake()->sentence(1),
             'original_language' => fake()->word,
             'director' => fake()->name,
             'film_image' => fake()->imageUrl,

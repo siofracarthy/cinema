@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->string('run_time');
             $table->date('release_date');
             $table->string('age_rating');
             $table->string('original_language');

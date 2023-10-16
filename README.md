@@ -64,3 +64,6 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+1. Added model 'Film' which represents a table in the 'cinema' database. In this I outlined the attributes. Then I created a migration, 'create_films_table' this is used to modify / change a table in the database. In this migration I altered the up() function which is called when you run a migration. In this function I defined the Film Schema. I then created 'FilmFactory' in this you generate fake data which the seeder later used to populate the database.

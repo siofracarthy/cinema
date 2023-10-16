@@ -12,12 +12,11 @@ class Film extends Model
     protected $fillable = [
         'title',
         'description',
+        'run_time',
         'release_date',
         'age_rating',
         'original_language',
         'director',
         'film_image',
-
-
     ];
 }
