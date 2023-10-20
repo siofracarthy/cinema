@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Film;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FilmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('/films',FilmController::class);
+Route::get('/films/{film}', [FilmController::class, 'show'])->name('films.show');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+

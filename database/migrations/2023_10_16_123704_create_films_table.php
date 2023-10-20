@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->string('run_time');
+            $table->integer('run_time');
             $table->date('release_date');
             $table->string('age_rating');
             $table->string('original_language');
@@ -37,4 +37,14 @@ return new class extends Migration
     {
         Schema::dropIfExists('films');
     }
+
+    // $film = new Film();
+    // $film->title = 'Sample film title';
+    // $film->description = 'Sample film description';
+    // $film->save();
+
+    // $film = Film::create([
+    //     'title' => 'Another film title',
+    //     'description' => 'Another film description',
+    // ]);
 };

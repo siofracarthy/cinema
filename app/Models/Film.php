@@ -19,4 +19,7 @@ class Film extends Model
         'director',
         'film_image',
     ];
+
+
+
 }

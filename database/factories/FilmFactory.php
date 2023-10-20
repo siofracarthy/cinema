@@ -22,7 +22,7 @@ class FilmFactory extends Factory
             'description' => fake()->paragraph,
             'run_time' => fake()->numerify,
             'release_date' =>fake()->date,
-            'age_rating' => fake()->sentence(1),
+            'age_rating' => fake()->numerify,
             'original_language' => fake()->word,
             'director' => fake()->name,
             'film_image' => fake()->imageUrl,
