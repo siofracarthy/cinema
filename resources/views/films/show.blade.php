@@ -1,45 +1,38 @@
-@extends('layouts.app')
-@section('content')
-    <div class="container">
-        <h1>View Film</h1>
 
-        <table class="table table-hover">
-            <tbody>
-                <tr>
-                    <td><strong> Title </strong></td>
-                    <td>{{ $film->title }}</td>
-                </tr>
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            Dashboard
+        </h2>
+    </x-slot>
 
-                <tr>
-                    <td><strong> Description </strong></td>
-                    <td>{{ $film->description }}</td>
-                </tr>
-                <tr>
-                    <td><strong> Run Time </strong></td>
-                    <td>{{ $film->run_time }}</td>
-                </tr>
-                <tr>
-                    <td><strong> Release Date </strong></td>
-                    <td>{{ $film->release_date }}</td>
-                </tr>
-                <td><strong> Age Rating </strong></td>
-                <td>{{ $film->age_rating }}</td>
-                <tr>
-                    <td><strong> Original Language </strong></td>
-                    <td>{{ $film->original_language }}</td>
-                </tr>
-                <tr>
-                    <td><strong> Director </strong></td>
-                    <td>{{ $film->director }}</td>
-                </tr>
+    <!-- Page Content -->
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
+                    <table class="table table-hover">
+                        <tbody>
+                          <tr>
+                            <td rowspan="6">
+                                <!-- use the asset function, access the file $book->book_image in the folder storage/images -->
+                                <img src="{{asset('storage/images/' . $film->film_image) }}" width="150" />
+                            </td>
+                            </tr>
+                            <tr>
+                                <td class="font-bold ">Title  </td>
+                                <td>{{ $film->title }}</td>
+                            </tr>
 
-                <tr>
-                    <td><strong> Film Image </strong></td>
-                    <td>{{ $film->film_image }}</td>
-                </tr>
+                            <tr>
+                                <td class="font-bold">Description </td>
+                                <td>{{ $film->description }}</td>
+                            </tr>
 
-
-            </tbody>
-        </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-@endsection
+</x-app-layout>
