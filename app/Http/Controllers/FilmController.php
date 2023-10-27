@@ -30,10 +30,17 @@ class FilmController extends Controller
     public function store(Request $request)
     {
 
+
+        //https://laravel.com/docs/10.x/validation
         $request->validate([
             'title' => 'required',
-            'description' => 'required',
-            'run_time' => 'required'
+            'description' => 'required|max:500',
+            'run_time' => 'required|max:3',
+            'release_date' => 'required',
+            'age_rating' => 'required|max:2',
+            'original_language' => 'required',
+            'director' => 'required',
+            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         Film::create([
@@ -41,13 +48,24 @@ class FilmController extends Controller
             'description' => $request->description,
             'run_time' => $request->run_time,
             'release_date' => fake()->date,
-            'age_rating' => 18,
-            'original_language' => "test original language",
-            'director' => "test director",
-            'film_image' => "test film image"
+            'age_rating' => fake()->number_format,
+            'original_language' => $request->original_language,
+            'director' => $request->director,
+            'film_image' => $film_image_name
         ]);
         return to_route('films.index');
+
+        // creates unique name for the image file
+        if ($request->hasFile('film_image')) {
+            $image = $request->file('film_image');
+            $imageName = time() . '.' . $image->extension();
+        // stores file in public disk under the film directory
+            $image->storeAs('public/films', $imageName);
+            $film_image_name = 'storage/films/' . $imageName;
+        }
     }
+
+
 
     /**
      * Display the specified resource.

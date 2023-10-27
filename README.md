@@ -67,3 +67,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 1. Added model 'Film' which represents a table in the 'cinema' database. In this I outlined the attributes. Then I created a migration, 'create_films_table' this is used to modify / change a table in the database. In this migration I altered the up() function which is called when you run a migration. In this function I defined the Film Schema. I then created 'FilmFactory' in this you generate fake data which the seeder later used to populate the database.
+
+2. 
+
+3. 
