@@ -61,7 +61,7 @@ class FilmController extends Controller
             $imageName = time() . '.' . $image->extension();
         // stores file in public disk under the film directory
             $image->storeAs('public/films', $imageName);
-            $film_image_name = 'storage/films/' . $imageName;
+            $film_image_name = 'storage/app/public/films/' . $imageName;
         }
     }
 
@@ -78,24 +78,56 @@ class FilmController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Film $film)
     {
-        //
+         return view('films.edit')->with('film', $film);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Film $film)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required|max:500',
+            'run_time' => 'required|max:3',
+            'release_date' => 'required',
+            'age_rating' => 'required|max:2',
+            'original_language' => 'required',
+            'director' => 'required',
+            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+
+        ]);
+
+        if ($request->hasFile('book_image')) {
+            $image = $request->file('film_image');
+            $imageName = time() . '.' . $image->extension();
+
+            $image->storeAs('public/films', $imageName);
+            $film_image_name = 'storage/app/public/films/' . $imageName;
+        }
+
+        $film->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'run_time' => $request->run_time,
+            'release_date' => fake()->date,
+            'age_rating' => fake()->number_format,
+            'original_language' => $request->original_language,
+            'director' => $request->director,
+            'film_image' => $film_image_name
+        ]);
+
+        return to_route('films.show', $film)->with('success', 'Film updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Film $film)
     {
-        //
+        $film->delete();
+        return to_route('films.index')->with('success', 'Film deleted successfully');
     }
 }

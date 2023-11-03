@@ -17,8 +17,8 @@
                     <p class="mt-2">
                         {{$film->description}}
                         @if ($film->film_image)
-                        <img src="{{ $film->film_image }}"
-                        alt="{{ $film->title }}" width="100">
+                        <img src="{{ asset($film->film_image) }}" alt="{{ $film->title }}" width="100">
+                        
                     @else
                         No Image
                     @endif

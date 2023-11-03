@@ -14,7 +14,7 @@
                         type="text"
                         name="title"
                         field="title"
-                        placeholder="Title"
+                        placeholder="Title" style="margin-bottom: 10px;"
                         class="w-full"
                         autocomplete="off"
                         :value="@old('title')"></x-text-input>
@@ -24,15 +24,24 @@
                         name="description"
                         rows="10"
                         field="description"
-                        placeholder="Description..."
+                        placeholder="Description..." style="margin-bottom: 10px;"
                         class="w-full mt-6"
                         :value="@old('description')">
                     </x-textarea>
 
+                    <x-text-input
+                    type="text"
+                    name="original_language"
+                    field="original_language"
+                    placeholder="Language" style="margin-bottom: 10px;"
+                    class="w-full"
+                    :value="@old('original_language ', $film->film)">
+                    </x-text-input>
+
                     <x-file-input
                         type="file"
                         name="film_image"
-                        placeholder="Film"
+                        placeholder="Film" style="margin-bottom: 10px;"
                         class="w-full mt-6"
                         field="film_image"
                         :value="@old('film_image')">>

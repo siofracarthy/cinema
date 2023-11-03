@@ -9,14 +9,20 @@
     <!-- Page Content -->
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+
+            <x-alert-success>
+                {{ session('success') }}
+            </x-alert-success>
+
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                     <table class="table table-hover">
                         <tbody>
                           <tr>
                             <td rowspan="6">
-                                <!-- use the asset function, access the file $book->book_image in the folder storage/images -->
-                                <img src="{{asset('storage/images/' . $film->film_image) }}" width="150" />
+                                <!-- use the asset function, access the file $film->film_image in the folder storage/images -->
+                                <img src="{{ asset($film->film_image) }}" alt="{{ $film->title }}" width="100">
                             </td>
                             </tr>
                             <tr>
@@ -31,6 +37,7 @@
 
                         </tbody>
                     </table>
+                    <x-primary-button><a href="{{route('films.edit', $film) }}">Edit</a> </x-primary-button>
                 </div>
             </div>
         </div>
