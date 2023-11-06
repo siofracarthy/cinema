@@ -40,20 +40,8 @@ class FilmController extends Controller
             'age_rating' => 'required|max:2',
             'original_language' => 'required',
             'director' => 'required',
-            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-
-        Film::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'run_time' => $request->run_time,
-            'release_date' => fake()->date,
-            'age_rating' => fake()->number_format,
-            'original_language' => $request->original_language,
-            'director' => $request->director,
-            'film_image' => $film_image_name
-        ]);
-        return to_route('films.index');
 
         // creates unique name for the image file
         if ($request->hasFile('film_image')) {
@@ -61,8 +49,25 @@ class FilmController extends Controller
             $imageName = time() . '.' . $image->extension();
         // stores file in public disk under the film directory
             $image->storeAs('public/films', $imageName);
-            $film_image_name = 'storage/app/public/films/' . $imageName;
+            $film_image_name = 'storage/films/' . $imageName;
         }
+
+
+        Film::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'run_time' => $request->run_time,
+            'release_date' => $request->release_date,
+            'age_rating' => $request->age_rating,
+            'original_language' => $request->original_language,
+            'director' => $request->director,
+            'film_image' => $film_image_name
+        ]);
+        return to_route('films.index')->with('success', 'Film created successfully');
+        // return to_route('films.index', $film)->with('success', 'Film created successfully!');
+
+
+
     }
 
 
@@ -100,26 +105,27 @@ class FilmController extends Controller
 
         ]);
 
-        if ($request->hasFile('book_image')) {
+        if ($request->hasFile('film_image')) {
             $image = $request->file('film_image');
             $imageName = time() . '.' . $image->extension();
 
             $image->storeAs('public/films', $imageName);
-            $film_image_name = 'storage/app/public/films/' . $imageName;
+            $film_image_name = 'storage/films/' . $imageName;
         }
 
         $film->update([
             'title' => $request->title,
             'description' => $request->description,
             'run_time' => $request->run_time,
-            'release_date' => fake()->date,
-            'age_rating' => fake()->number_format,
+            'release_date' => $request->release_date,
+            'age_rating' => $request->age_rating,
             'original_language' => $request->original_language,
             'director' => $request->director,
             'film_image' => $film_image_name
         ]);
-
+        // return to_route('films.show')->with('success', 'Film updated successfully');
         return to_route('films.show', $film)->with('success', 'Film updated successfully!');
+
     }
 
     /**

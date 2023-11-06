@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('age_rating');
             $table->string('original_language');
             $table->string('director');
-            $table->string('film_image')->nullable();
+            $table->string('film_image');
 
 
             $table->timestamps();
