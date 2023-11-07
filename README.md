@@ -74,4 +74,4 @@ Also created 'create.blade.php' which is the page that allows users to create fi
 and validates. Created the 'index.blade.php' page which displays the 'title', 'description' and the 'images' of each film. Created 'show.blade.php' 
 it displays all the content of the Film the user selects. Created 'app.blade.php' which displays a navigation bar to the user in which you can click 'All Films' or 'Add new Films'.
 
-3. 
+3. Made attributes in 'FilmController.php' to be required and gave limits e.g 'description' => 'required|max:500' makes it so the description can only be a max of 500 in length. Also gave 'film_image' a name of 'film_image_name' so that when the user inputs a file when creating a film it will give the image a unique name and stores the file in a public disk
