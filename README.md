@@ -67,7 +67,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ALL COMMIT NOTES
 
-1. Added model 'Film' which represents a table in the 'cinema' database. In this I outlined the attributes. Then I created a migration, 'create_films_table' this is used to modify / change a table in the database. In this migration I altered the up() function which is called when you run a migration. In this function I defined the Film Schema. I then created 'FilmFactory' in this you generate fake data which the seeder later used to populate the database.
+1. Added model 'Film' which represents a table in the 'cinema' database. In this I outlined the attributes. Then I created a migration, 'create_films_table' this is used to specifiy what data typea an attribute is in the database. In this migration I altered the up() function which is called when you run a migration. In this function I defined the Film Schema. I then created 'FilmFactory' in this you generate fake data which the seeder later used to populate the database.
 
 2. Created 'FilmController.php' this controller contains all the functions that will allow us to create, delete and edit films, etc. 
 Also created 'create.blade.php' which is the page that allows users to create films using the films attributes eg. Title and description. This also checks for any errors
