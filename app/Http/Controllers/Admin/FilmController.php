@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Film;
 
@@ -12,8 +13,12 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $films = Film::all();
-        return view ('films.index', compact('films'));
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        $films = Film::paginate(10);
+
+        return view ('admin.films.index')->with('films', $films);
     }
 
     /**
@@ -21,7 +26,10 @@ class FilmController extends Controller
      */
     public function create()
     {
-        return view ('films.create');
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        return view('admin.films.create')
     }
 
     /**

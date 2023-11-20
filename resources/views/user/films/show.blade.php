@@ -63,9 +63,9 @@
 
                         </tbody>
                     </table>
-                    <x-primary-button><a href="{{route('films.edit', $film) }}">Edit</a> </x-primary-button>
+                    <x-primary-button><a href="{{route('user.films.edit', $film) }}">Edit</a> </x-primary-button>
 
-                    <form action="{{ route('films.destroy', $film) }}" method="post">
+                    <form action="{{ route('user.films.destroy', $film) }}" method="post">
                         @method('delete')
                         @csrf
                         <x-primary-button onclick="return confirm('Are you sure you want to delete?')">Delete</x-primary-button>

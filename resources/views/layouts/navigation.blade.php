@@ -18,13 +18,13 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('films.index')" :active="request()->routeIs('films.index')">
+                    <x-nav-link :href="route('films.index')" :active="request()->routeIs('admin.films.index')">
                         {{ __('All Films') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('films.create')" :active="request()->routeIs('films.create')">
+                    <x-nav-link :href="route('films.create')" :active="request()->routeIs('admin.films.create')">
                         {{ __('Create Film') }}
                     </x-nav-link>
                 </div>
