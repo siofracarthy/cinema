@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         Film::factory()->count(50)->create();
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
+
+        $this->call(CompanySeeder::class); //calls HasFilms() function from CompanySeeder
     }
 }

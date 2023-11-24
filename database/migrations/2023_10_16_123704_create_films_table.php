@@ -10,41 +10,25 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('films', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->integer('run_time');
-            $table->date('release_date');
-            $table->string('age_rating');
-            $table->string('original_language');
-            $table->string('director');
-            $table->string('film_image');
-
-
-            $table->timestamps();
-
-
+        Schema::table('films', function (Blueprint $table) {
+            $table->unsignedBigInteger('company_id');
+            $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')->onDelete('restrict');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('films');
+        Schema::table('films', function(Blueprint $table) {
+            $table->dropForeign(['company_id']);
+            $table->dropColumn('company_id');
+
+        });
     }
 
-    // $film = new Film();
-    // $film->title = 'Sample film title';
-    // $film->description = 'Sample film description';
-    // $film->save();
 
-    // $film = Film::create([
-    //     'title' => 'Another film title',
-    //     'description' => 'Another film description',
-    // ]);
 };

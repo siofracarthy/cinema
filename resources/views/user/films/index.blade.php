@@ -12,7 +12,6 @@
                 {{ session('success') }}
             </x-alert-success>
 
-                    <x-primary-button><a href="{{ route('user.films.create') }}" class="btn-link btn-lg mb-2">Add a Film</a></x-primary-button>
                     @forelse ($films as $film)
                         <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                             <b class="font-bold text-2xl">

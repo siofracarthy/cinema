@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Film;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FilmController extends Controller
 {
@@ -29,7 +30,7 @@ class FilmController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        return view('admin.films.create')
+        return view('admin.films.create');
     }
 
     /**

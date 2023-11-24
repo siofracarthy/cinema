@@ -3,8 +3,8 @@
 
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\BookController as AdminFilmController;
-use App\Http\Controllers\User\BookController as UserFilmController;
+use App\Http\Controllers\Admin\FilmController as AdminFilmController;
+use App\Http\Controllers\User\FilmController as UserFilmController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/admin/films', AdminFilmController::class)->middleware(['auth'])->names('admin.films');
     Route::resource('/user/films', UserFilmController::class)->middleware(['auth'])->names('user.films')->only(['index', 'show']);
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
