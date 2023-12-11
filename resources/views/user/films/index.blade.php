@@ -18,6 +18,9 @@
                                <a href="{{ route('user.films.show', $film) }}"> {{ $film->title }} </a>
                             </b>
                             <p class="mt-2">
+                                <h3 class="font-bold text-1x1"> <strong> Company Name </strong> {{-- Consider turning company name into link which routes to show company func --}}
+
+                                {{ $film->company->name }}
                                 {{ $film->description }}
                                 @if ($film->film_image)
                                     <img src="{{ asset($film->film_image) }}" alt="{{ $film->title }}" width="100">

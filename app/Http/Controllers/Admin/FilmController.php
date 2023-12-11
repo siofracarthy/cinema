@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Film;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,8 @@ class FilmController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        $films = Film::paginate(10);
+        // $films = Film::paginate(10);
+        $films = Film::with('company')->get();
 
         return view ('admin.films.index')->with('films', $films);
     }
@@ -30,7 +32,9 @@ class FilmController extends Controller
         $user = Auth::user();
         $user->authorizeRoles('admin');
 
-        return view('admin.films.create');
+        $companies = Company::all();
+        return view('admin.films.create')->with('companies', $companies);
+
     }
 
     /**
@@ -50,6 +54,7 @@ class FilmController extends Controller
             'original_language' => 'required',
             'director' => 'required',
             'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company_id' => 'required'
         ]);
 
         // creates unique name for the image file
@@ -70,10 +75,11 @@ class FilmController extends Controller
             'age_rating' => $request->age_rating,
             'original_language' => $request->original_language,
             'director' => $request->director,
-            'film_image' => $film_image_name
+            'film_image' => $film_image_name,
+            'company_id' => $request->company_id
         ]);
-        return to_route('films.index')->with('success', 'Film created successfully');
-        // return to_route('films.index', $film)->with('success', 'Film created successfully!');
+        return to_route('admin.films.index')->with('success', 'Film created successfully');
+
 
 
 
@@ -86,7 +92,7 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
-        return view('films.show')->with('film', $film);
+        return view('admin.films.show')->with('film', $film);
     }
 
     /**
@@ -94,7 +100,11 @@ class FilmController extends Controller
      */
     public function edit(Film $film)
     {
-         return view('films.edit')->with('film', $film);
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        $companies = Company::all();
+         return view('admin.films.edit', compact('film', 'companies'));
     }
 
     /**
@@ -110,7 +120,9 @@ class FilmController extends Controller
             'age_rating' => 'required|max:2',
             'original_language' => 'required',
             'director' => 'required',
-            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'company_id' => 'required'
+
 
         ]);
 
@@ -130,10 +142,11 @@ class FilmController extends Controller
             'age_rating' => $request->age_rating,
             'original_language' => $request->original_language,
             'director' => $request->director,
-            'film_image' => $film_image_name
+            'film_image' => $film_image_name,
+            'company_id' => $request->company_id
         ]);
         // return to_route('films.show')->with('success', 'Film updated successfully');
-        return to_route('films.show', $film)->with('success', 'Film updated successfully!');
+        return to_route('admin.films.show', $film)->with('success', 'Film updated successfully!');
 
     }
 
@@ -143,6 +156,6 @@ class FilmController extends Controller
     public function destroy(Film $film)
     {
         $film->delete();
-        return to_route('films.index')->with('success', 'Film deleted successfully');
+        return to_route('admin.films.index')->with('success', 'Film deleted successfully');
     }
 }

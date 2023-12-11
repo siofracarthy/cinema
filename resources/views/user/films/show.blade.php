@@ -61,15 +61,25 @@
                                 <td>{{ $film->original_language }}</td>
                             </tr>
 
+                            <td class="font-bold">Company Name </td>
+                            <td>{{ $film->company->name }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-bold">Company Email </td>
+                            <td>{{ $film->company->email }}</td>
+                        </tr>
+
+                        <tr>
+                            <td class="font-bold">Company Phone Number </td>
+                            <td>{{ $film->company->phone_number }}</td>
+                        </tr>
+
                         </tbody>
                     </table>
-                    <x-primary-button><a href="{{route('user.films.edit', $film) }}">Edit</a> </x-primary-button>
 
-                    <form action="{{ route('user.films.destroy', $film) }}" method="post">
-                        @method('delete')
-                        @csrf
-                        <x-primary-button onclick="return confirm('Are you sure you want to delete?')">Delete</x-primary-button>
-                    </form>
+
+
                 </div>
             </div>
         </div>

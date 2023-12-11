@@ -18,8 +18,16 @@ class Film extends Model
         'original_language',
         'director',
         'film_image',
+        'company_id'
     ];
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 
-
+    public function producers()
+    {
+        return $this->belongsToMany(Producer::class)->withTimestamps();
+    }
 }

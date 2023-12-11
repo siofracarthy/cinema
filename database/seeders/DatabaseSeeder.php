@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Film::factory()->count(50)->create();
+        // Film::factory()->count(50)->create();
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
 
         $this->call(CompanySeeder::class); //calls HasFilms() function from CompanySeeder
+        $this->call(ProducerSeeder::class);
     }
 }

@@ -86,6 +86,10 @@
                     :value="@old('film_image')">>
                     </x-file-input>
 
+                    <div class="mt-6">
+                        <x-select-company name="company_id" :companies="$companies" :selected="old('company_id')"/>
+                    </div>
+
                     <x-primary-button class="mt-6">Save Film</x-primary-button>
                 </form>
             </div>

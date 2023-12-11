@@ -18,9 +18,9 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'founding_year' => $this->faker->founding_year,
+            'founding_year' => $this->faker->date,
             'email' => $this->faker->email,
-            'phone_number' => $this->faker->phone_number,
+            'phone_number' => $this->faker->phoneNumber,
 
         ];
     }

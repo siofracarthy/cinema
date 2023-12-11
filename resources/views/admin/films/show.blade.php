@@ -1,4 +1,3 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -19,14 +18,14 @@
                 <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                     <table class="table table-hover">
                         <tbody>
-                          <tr>
-                            <td rowspan="8">
-                                <!-- use the asset function, access the file $film->film_image in the folder storage/images -->
-                                <img src="{{ asset($film->film_image) }}" alt="{{ $film->title }}" width="300">
-                            </td>
+                            <tr>
+                                <td rowspan="8">
+                                    <!-- use the asset function, access the file $film->film_image in the folder storage/images -->
+                                    <img src="{{ asset($film->film_image) }}" alt="{{ $film->title }}" width="300">
+                                </td>
                             </tr>
                             <tr>
-                                <td class="font-bold ">Title  </td>
+                                <td class="font-bold ">Title </td>
                                 <td>{{ $film->title }}</td>
                             </tr>
 
@@ -61,14 +60,32 @@
                                 <td>{{ $film->original_language }}</td>
                             </tr>
 
+                            <tr>
+                                <td class="font-bold">Company Name </td>
+                                <td>{{ $film->company->name }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="font-bold">Company Email </td>
+                                <td>{{ $film->company->email }}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="font-bold">Company Phone Number </td>
+                                <td>{{ $film->company->phone_number }}</td>
+                            </tr>
+
+
+
                         </tbody>
                     </table>
-                    <x-primary-button><a href="{{route('admin.films.edit', $film) }}">Edit</a> </x-primary-button>
+                    <x-primary-button><a href="{{ route('admin.films.edit', $film) }}">Edit</a> </x-primary-button>
 
                     <form action="{{ route('admin.films.destroy', $film) }}" method="post">
                         @method('delete')
                         @csrf
-                        <x-primary-button onclick="return confirm('Are you sure you want to delete?')">Delete</x-primary-button>
+                        <x-primary-button
+                            onclick="return confirm('Are you sure you want to delete?')">Delete</x-primary-button>
                     </form>
                 </div>
             </div>
