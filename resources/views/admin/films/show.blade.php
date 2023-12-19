@@ -75,6 +75,10 @@
                                 <td>{{ $film->company->phone_number }}</td>
                             </tr>
 
+                            @foreach ($film->producers as $producer)
+                            <a href="{{ route('admin.producers.show', $producer) }}" > <p>{{ $producer->name }}</p> </a>
+                        @endforeach
+
 
 
                         </tbody>

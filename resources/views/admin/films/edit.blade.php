@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Edit Book') }}
+            {{ __('Edit Film') }}
         </h2>
     </x-slot>
 
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="my-6 p-6 bg-white border-b border-gray-200 shadow-sm sm:rounded-lg">
                 <!-- The route is films.update, this route defined in web.php calls FilmController:update() function -->
-                <form action="{{ route('admin.films.update', $book) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin.films.update', $film) }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
 
@@ -108,7 +108,7 @@
                 </div>
 
 
-                <x-primary-button class="mt-6">Save Book</x-primary-button>
+                <x-primary-button class="mt-6">Save Film</x-primary-button>
                 </form>
             </div>
         </div>

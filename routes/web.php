@@ -8,6 +8,9 @@ use App\Http\Controllers\User\FilmController as UserFilmController;
 use App\Http\Controllers\User\CompanyController as UserCompanyController;
 use App\Http\Controllers\Admin\CompanyController as AdminCompanyController;
 
+use App\Http\Controllers\User\ProducerController as UserProducerController;
+use App\Http\Controllers\Admin\ProducerController as AdminProducerController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +33,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware('auth')->group(function () {
 
     Route::resource('/admin/films', AdminFilmController::class)->middleware(['auth'])->names('admin.films');
     Route::resource('/user/films', UserFilmController::class)->middleware(['auth'])->names('user.films')->only(['index', 'show']);
@@ -40,8 +49,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/admin/companies', AdminCompanyController::class)->middleware(['auth'])->names('admin.companies');
     Route::resource('/user/companies', UserCompanyController::class)->middleware(['auth'])->names('user.companies')->only(['index', 'show']);
+
+    Route::resource('/admin/producers', AdminProducerController::class)->middleware(['auth'])->names('admin.producers');
+    Route::resource('/user/producers', UserProducerController::class)->middleware(['auth'])->names('user.producers')->only(['index', 'show']);
 });
 
-Route::resource('/films', FilmController::class);
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

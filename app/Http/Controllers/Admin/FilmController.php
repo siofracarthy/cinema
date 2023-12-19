@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Film;
 use App\Models\Company;
+use App\Models\Producer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class FilmController extends Controller
         // $films = Film::paginate(10);
         $films = Film::with('company')->get();
 
-        return view ('admin.films.index')->with('films', $films);
+        return view('admin.films.index')->with('films', $films);
     }
 
     /**
@@ -33,8 +34,8 @@ class FilmController extends Controller
         $user->authorizeRoles('admin');
 
         $companies = Company::all();
-        return view('admin.films.create')->with('companies', $companies);
-
+        $producers = Producer::all();
+        return view('admin.films.create')->with('companies', $companies)->with('producers', $producers);
     }
 
     /**
@@ -43,6 +44,8 @@ class FilmController extends Controller
     public function store(Request $request)
     {
 
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
 
         //https://laravel.com/docs/10.x/validation
         $request->validate([
@@ -54,20 +57,22 @@ class FilmController extends Controller
             'original_language' => 'required',
             'director' => 'required',
             'film_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'company_id' => 'required'
+            'company_id' => 'required',
+            'producers' => ['required', 'exists:producers,id']
         ]);
 
-        // creates unique name for the image file
+//creates unique name for image file
         if ($request->hasFile('film_image')) {
             $image = $request->file('film_image');
             $imageName = time() . '.' . $image->extension();
-        // stores file in public disk under the film directory
+            // stores file in public disk under the film directory
             $image->storeAs('public/films', $imageName);
             $film_image_name = 'storage/films/' . $imageName;
         }
 
 
-        Film::create([
+
+        $film = Film::create([
             'title' => $request->title,
             'description' => $request->description,
             'run_time' => $request->run_time,
@@ -78,11 +83,11 @@ class FilmController extends Controller
             'film_image' => $film_image_name,
             'company_id' => $request->company_id
         ]);
+
+        $film->producers()->attach($request->producers);
+
+
         return to_route('admin.films.index')->with('success', 'Film created successfully');
-
-
-
-
     }
 
 
@@ -104,7 +109,7 @@ class FilmController extends Controller
         $user->authorizeRoles('admin');
 
         $companies = Company::all();
-         return view('admin.films.edit', compact('film', 'companies'));
+        return view('admin.films.edit', compact('film', 'companies'));
     }
 
     /**
@@ -112,6 +117,9 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
         $request->validate([
             'title' => 'required',
             'description' => 'required|max:500',
@@ -147,7 +155,6 @@ class FilmController extends Controller
         ]);
         // return to_route('films.show')->with('success', 'Film updated successfully');
         return to_route('admin.films.show', $film)->with('success', 'Film updated successfully!');
-
     }
 
     /**
@@ -155,7 +162,14 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
+
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        $film->producers()->detach();
+
         $film->delete();
         return to_route('admin.films.index')->with('success', 'Film deleted successfully');
+
     }
 }

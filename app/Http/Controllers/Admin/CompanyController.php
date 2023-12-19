@@ -31,6 +31,7 @@ class CompanyController extends Controller
         $user->authorizeRoles('admin');
 
         $companies = Company::all();
+
         return view('admin.companies.create')->with('companies', $companies);
     }
 
@@ -90,6 +91,9 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
         $request->validate([
             'name' => 'required',
             'founding_year' => 'required',
@@ -116,6 +120,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+
         $company->delete();
         return to_route('admin.companies.index')->with('success', 'Company deleted successfully');
     }

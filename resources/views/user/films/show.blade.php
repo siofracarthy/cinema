@@ -75,6 +75,14 @@
                             <td>{{ $film->company->phone_number }}</td>
                         </tr>
 
+
+                        @foreach ($film->producers as $producer)
+                        <tr>
+                            <td class='font-bold'>Producer </td>
+                            <td> {{ $producer->first_name }} </td>
+                        </tr>
+                    @endforeach
+
                         </tbody>
                     </table>
 

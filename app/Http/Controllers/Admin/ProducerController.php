@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Film;
+use App\Models\Producer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProducerController extends Controller
 {
@@ -20,7 +23,8 @@ class ProducerController extends Controller
      */
     public function create()
     {
-        //
+
+
     }
 
     /**
@@ -28,15 +32,19 @@ class ProducerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Producer $producer)
     {
-        //
+        $user = Auth::user();
+        $user->authorizeRoles('admin');
+
+        $films = $producer->films;
+        return view('admin.producers.show', compact('producer', 'films'));
     }
 
     /**

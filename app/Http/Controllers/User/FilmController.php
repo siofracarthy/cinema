@@ -25,4 +25,9 @@ class FilmController extends Controller
          return view('films.edit')->with('film', $film);
     }
 
+    public function show(Film $film)
+    {
+        return view('user.films.show')->with('film', $film);
+    }
+
 }
